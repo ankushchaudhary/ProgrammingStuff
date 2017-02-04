@@ -65,6 +65,9 @@ def additionOfTwoNumber(num1,num2):
         result.insert((node2.data+carry)%10)
         carry=(node2.data+carry)//10
         node2=node2.pointer
+    
+    if carry !=0:
+       result.insert(carry)
         
     result.printList()
         
