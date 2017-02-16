@@ -1,4 +1,4 @@
-class Node:# cook your dish here
+# cook your dish here
 class Node:
     
     def __init__(self,x):
@@ -44,6 +44,32 @@ class Stack:
             return
             
         print("middle of stack is {0}".format(self.mid.data))
+    
+    def deleteMiddle(self):
+        if self.isEmpty()==True:
+            return
+        
+        
+        if self.mid==self.top:
+            self.mid=self.top=None
+            self.count-=1
+            return
+        
+        if self.count%2==1:
+            node=self.mid.left
+            self.mid=self.mid.right
+            node.right=self.mid
+            self.mid.left=node
+        else:
+            node=self.mid.right
+            self.mid=self.mid.left
+            self.mid.right=node
+            if node!=None:
+                node.left=self.mid
+        self.count-=1
+            
+        
+        
         
     def push(self,x):
         self.count+=1
@@ -68,11 +94,17 @@ class Stack:
 
 
 st=Stack()
-for i in range(9):
+for i in range(1,7):
     st.push(i)
+    print("{0} has been pushed in stack".format(i))
     st.getMiddle()
-
-for i in range(9):
-    st.pop()
-    st.getMiddle()
+    
+st.deleteMiddle()
+st.getMiddle()
+st.deleteMiddle()
+st.getMiddle()
+st.deleteMiddle()
+st.getMiddle()
+st.pop()
+st.getMiddle()
 
