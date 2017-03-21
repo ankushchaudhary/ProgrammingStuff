@@ -9,18 +9,18 @@ class BinaryTree:
     def __init__(self):
         self.head=None
     
-    def insert(self,data):
-        if self.head==None:
-            self.head=Node(data)
-            return self.head
+    def insert(self,data,head):
+        if head==None:
+            head=Node(data)
+            return head
         
-        if self.head.data>=data:
-            self.head.left=self.insert(self.head.left,data)
+        if head.data>=data:
+            head.left=self.insert(data,head.left)
             
         else:
-            self.head.right=self.insert(self.head.right,data)
+            head.right=self.insert(data,head.right)
             
-        return self.head
+        return head
         
     def getHeight(self,head):
         if self==None:
@@ -33,25 +33,51 @@ class BinaryTree:
         
     def printLevel(self,k,head):
         if k==0:
-            print("%d "%head.data)
+            print("%d "%head.data,end=' ')
             return
         self.printLevel(k-1,head.left)
         self.printLevel(k-1,head.right)
         
-    def printAllLevel(self):
+    def printAllLevel1(self):
         height=self.getHeight(self.head)
         for i in range(height):
-            printLevel(i,self.head)
+            self.printLevel(i,self.head)
+            print("")
+            
+    def printAllLevel2(self):
+        lst=[]
+        temp=self.head
+        lst.append(temp)
+        count=1
+        while True:
+            count=len(lst)
+            if count<=0:
+                break;
+            
+            while count>0:
+                tem=lst.pop(0)
+                print("%d"%tem.data,end=' ')
+                count-=1
+                if tem.left!=None:
+                    lst.append(tem.left)
+                
+                if tem.right!=None:
+                    lst.append(tem.right)
+                    
+            print("")
+            
+            
             
 bt=BinaryTree()
-bt.insert(4)
-bt.insert(2)
-bt.insert(6)
-bt.insert(1)
-bt.insert(3)
-bt.insert(5)
-bt.insert(7)
-bt.printAllLevel()
+bt.head=bt.insert(4,bt.head)
+bt.head=bt.insert(2,bt.head)
+bt.head=bt.insert(6,bt.head)
+bt.head=bt.insert(1,bt.head)
+bt.head=bt.insert(3,bt.head)
+bt.head=bt.insert(5,bt.head)
+bt.head=bt.insert(7,bt.head)
+bt.printAllLevel1()
+bt.printAllLevel2()
         
         
         
